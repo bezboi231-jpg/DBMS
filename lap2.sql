@@ -1,13 +1,7 @@
-set serveroutput on;
-DECLARE
- num NUMBER:=&num;
- sq NUMBER;
- cb NUMBER;
-BEGIN
- sq:=num*num;
- cb:=num*num*num;
-
- DBMS_OUTPUT.PUT_LINE('Square='||sq);
- DBMS_OUTPUT.PUT_LINE('Cube='||cb);
-END;
-/
+Set serverout on;
+CREATE TABLE emp_update(
+eid NUMBER,
+old_salary NUMBER,
+new_salary NUMBER,
+update_date DATE
+);

@@ -1,16 +1,36 @@
 set serveroutput on;
 DECLARE
- feet NUMBER:=&Feet;
- cm NUMBER;
- inch NUMBER;
- meter NUMBER;
-BEGIN
- inch:=feet*12;
- cm:=feet*30.48;
- meter:=feet*0.3048;
+CURSOR c1 IS
+SELECT Eid, BasicSal
+FROM EMP
+WHERE Deptno = 20;
 
- DBMS_OUTPUT.PUT_LINE('Inches='||inch);
- DBMS_OUTPUT.PUT_LINE('CM='||cm);
- DBMS_OUTPUT.PUT_LINE('Meter='||meter);
+v_eid EMP.Eid%TYPE;
+v_sal EMP.BasicSal%TYPE;
+
+BEGIN
+
+OPEN c1;
+
+IF c1%ISOPEN THEN
+DBMS_OUTPUT.PUT_LINE('Cursor Opened');
+END IF;
+
+LOOP
+FETCH c1 INTO v_eid, v_sal;
+
+EXIT WHEN c1%NOTFOUND;
+
+UPDATE EMP
+SET BasicSal = BasicSal * 1.05
+WHERE Eid = v_eid;
+
+INSERT INTO emp_update
+VALUES(v_eid, v_sal, v_sal*1.05, SYSDATE);
+
+END LOOP;
+
+CLOSE c1;
+
 END;
 /

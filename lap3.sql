@@ -1,16 +1,20 @@
-set serveroutput on;
+Set serveroutput on;
 DECLARE
- pname VARCHAR2(20):='&Product_Name';
- qty NUMBER:=&Quantity;
- price NUMBER:=&Price;
- dis NUMBER:=&Discount_Percentage;
- total NUMBER;
- discount NUMBER;
 BEGIN
- total:=qty*price;
- discount:=total*dis/100;
+    UPDATE EMP
+    SET BasicSal = BasicSal * 1.05
+    WHERE Deptno = 20;
 
- DBMS_OUTPUT.PUT_LINE('Total='||total);
- DBMS_OUTPUT.PUT_LINE('Discount='||discount);
+    IF SQL%ROWCOUNT = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('No employee found in Department 20');
+    ELSE
+        INSERT INTO emp_update
+        SELECT Eid, BasicSal/1.05, BasicSal, SYSDATE
+        FROM EMP
+        WHERE Deptno = 20;
+
+        DBMS_OUTPUT.PUT_LINE('Salary Updated Successfully');
+    END IF;
 END;
 /
+

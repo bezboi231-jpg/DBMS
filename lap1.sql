@@ -1,15 +1,15 @@
-set serveroutput on;
+Set serverout on;
 DECLARE
- p NUMBER:=&p;
- r NUMBER:=&r;
- t NUMBER:=&t;
- si NUMBER;
 BEGIN
- si:=(p*r*t)/100;
+    UPDATE EMP
+    SET BasicSal = BasicSal * 1.10
+    WHERE Deptno = 10;
 
- DBMS_OUTPUT.PUT_LINE('Principal Amount: '||'p_principal');
- DBMS_OUTPUT.PUT_LINE('Rate of Interest: '||'p_rate' || '%');
- DBMS_OUTPUT.PUT_LINE('Time Period: '||'p_time' || 'years');
- DBMS_OUTPUT.PUT_LINE('Simple Interest: '||si);
+    IF SQL%ROWCOUNT > 0 THEN
+        DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT || ' Employee record(s) updated.');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('No employee found in Department 10.');
+    END IF;
+
 END;
 /
