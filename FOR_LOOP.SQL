@@ -1,0 +1,11 @@
+SET SERVEROUTPUT ON;
+DECLARE
+    n NUMBER;
+BEGIN
+    n := &Number;
+
+    FOR i IN 1..n LOOP
+        DBMS_OUTPUT.PUT_LINE(i);
+    END LOOP;
+END;
+/
