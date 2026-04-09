@@ -1,0 +1,7 @@
+SET SERVEROUTPUT ON;
+CREATE OR REPLACE PROCEDURE display_msg
+IS
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Welcome to PL/SQL Programming');
+END;
+/
